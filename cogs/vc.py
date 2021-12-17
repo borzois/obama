@@ -14,6 +14,7 @@ class Voice(commands.Cog):
         self.laugh = (self.sound_folder_path / "laugh.mp3").resolve()
         self.vineboom = (self.sound_folder_path / "vine.mp3").resolve()
         self.fart = (self.sound_folder_path / "fart.mp3").resolve()
+        self.knock = (self.sound_folder_path / "knock.mp3").resolve()
         
         self.chan = None
 
@@ -56,4 +57,14 @@ class Voice(commands.Cog):
         if voice == None: 
             self.chan = await vc.connect()
         self.chan.play(discord.FFmpegOpusAudio(self.fart))
+
+    @commands.command()
+    async def knock(self, ctx):
+        user = ctx.message.author
+        vc = user.voice.channel
+        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild) 
+
+        if voice == None: 
+            self.chan = await vc.connect()
+        self.chan.play(discord.FFmpegOpusAudio(self.knock))
 
