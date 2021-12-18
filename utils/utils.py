@@ -54,24 +54,17 @@ class BooruTool:
         self.image_directory_path = (self.mod_path / self.image_directory).resolve()
 
     def get_random(self, query):
-        random_page = random.randint(1, 500)
-        posts = self.booru.post_list(tags=query, page=random_page, limit=20)
-        random_post = posts[random.randint(1, 20)]
-        try:
-            post_url = random_post['file_url']
-        except:
-            post_url = 'https://danbooru.donmai.us' + random_post['source']
+        number_of_posts = int(self.booru.count_posts(query)['counts']['posts'])
+        random_page = random.randint(1, number_of_posts//20) 
+        if number_of_posts <=18: random_page = 1
+        if number_of_posts >=20000: random_page = random.randint(1, 1000)
+        if number_of_posts != 0:
+            posts = self.booru.post_list(tags=query, page=random_page, limit=20)
+            random_post = posts[random.randint(1, 20)]
+            try:
+                post_url = random_post['file_url']
+            except:
+                post_url = 'https://danbooru.donmai.us' + random_post['source']
         
-        return post_url
-        '''
-        try:
-            randomint = random.randint(1000, 10000000)
-            print (self.image_directory_path)
-            print (post_url)
-            image_path = (self.image_directory_path / randomint + ".jpg")
-            print (image_path)
-            urllib.request.urlretrieve(post_url, image_path)
-            return image_path
-        except:
-            print("could not download image")
-        '''
+            return post_url
+        return ValueError ("could not find any images")
