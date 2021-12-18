@@ -11,10 +11,15 @@ class Voice(commands.Cog):
         self.sound_folder_path = (self.mod_path / sound_folder).resolve()
 
         self.gongul = (self.sound_folder_path / "gong.mp3").resolve()
-        self.laugh = (self.sound_folder_path / "laugh.mp3").resolve()
+        self.laugh = (self.sound_folder_path / "laugh2.mp3").resolve()
         self.vineboom = (self.sound_folder_path / "vine.mp3").resolve()
         self.fart = (self.sound_folder_path / "fart.mp3").resolve()
         self.knock = (self.sound_folder_path / "knock.mp3").resolve()
+        self.greier = (self.sound_folder_path / "greier.mp3").resolve()
+        self.cartoon = (self.sound_folder_path / "cartoon.mp3").resolve()
+        self.bruh = (self.sound_folder_path / "bruh.mp3").resolve()
+        self.cinematic = (self.sound_folder_path / "cinematic.mp3").resolve()
+        self.snap = (self.sound_folder_path / "snap.mp3").resolve()
         
         self.chan = None
 
@@ -68,3 +73,52 @@ class Voice(commands.Cog):
             self.chan = await vc.connect()
         self.chan.play(discord.FFmpegOpusAudio(self.knock))
 
+    @commands.command()
+    async def greier(self, ctx):
+        user = ctx.message.author
+        vc = user.voice.channel
+        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild) 
+
+        if voice == None: 
+            self.chan = await vc.connect()
+        self.chan.play(discord.FFmpegOpusAudio(self.greier))
+
+    @commands.command()
+    async def cartoon(self, ctx):
+        user = ctx.message.author
+        vc = user.voice.channel
+        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild) 
+
+        if voice == None: 
+            self.chan = await vc.connect()
+        self.chan.play(discord.FFmpegOpusAudio(self.cartoon))
+
+    @commands.command()
+    async def bruh(self, ctx):
+        user = ctx.message.author
+        vc = user.voice.channel
+        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild) 
+
+        if voice == None: 
+            self.chan = await vc.connect()
+        self.chan.play(discord.FFmpegOpusAudio(self.bruh))
+
+    @commands.command()
+    async def cinematic(self, ctx):
+        user = ctx.message.author
+        vc = user.voice.channel
+        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild) 
+
+        if voice == None: 
+            self.chan = await vc.connect()
+        self.chan.play(discord.FFmpegOpusAudio(self.cinematic))
+
+    @commands.command()
+    async def snap(self, ctx):
+        user = ctx.message.author
+        vc = user.voice.channel
+        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild) 
+
+        if voice == None: 
+            self.chan = await vc.connect()
+        self.chan.play(discord.FFmpegOpusAudio(self.snap))
