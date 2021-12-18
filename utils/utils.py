@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 import random
+from pybooru import Danbooru
+import urllib.request
 
 class Ip:
     def __init__(self):
@@ -44,3 +46,32 @@ class Ip:
         self.__update()
         return ip
 
+class BooruTool:
+    def __init__(self):
+        self.booru = Danbooru('danbooru')
+        self.image_directory = '../images/'
+        self.mod_path = Path(__file__).parent
+        self.image_directory_path = (self.mod_path / self.image_directory).resolve()
+
+    def get_random(self, query):
+        random_page = random.randint(1, 500)
+        posts = self.booru.post_list(tags=query, page=random_page, limit=20)
+        random_post = posts[random.randint(1, 20)]
+        try:
+            post_url = random_post['file_url']
+        except:
+            post_url = 'https://danbooru.donmai.us' + random_post['source']
+        
+        return post_url
+        '''
+        try:
+            randomint = random.randint(1000, 10000000)
+            print (self.image_directory_path)
+            print (post_url)
+            image_path = (self.image_directory_path / randomint + ".jpg")
+            print (image_path)
+            urllib.request.urlretrieve(post_url, image_path)
+            return image_path
+        except:
+            print("could not download image")
+        '''
