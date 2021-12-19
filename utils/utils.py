@@ -55,12 +55,19 @@ class BooruTool:
 
     def get_random(self, query):
         number_of_posts = int(self.booru.count_posts(query)['counts']['posts'])
-        random_page = random.randint(1, number_of_posts//20) 
-        if number_of_posts <=18: random_page = 1
-        if number_of_posts >=20000: random_page = random.randint(1, 1000)
+        posts_per_page = 20
+        if number_of_posts >=20: # this sucks idc
+            if number_of_posts >=20000: 
+                random_page = random.randint(1, 1000)
+            else:
+                random_page = random.randint(1, number_of_posts//20) 
+        else: 
+            random_page = 1
+            posts_per_page = number_of_posts
         if number_of_posts != 0:
             posts = self.booru.post_list(tags=query, page=random_page, limit=20)
-            random_post = posts[random.randint(1, 20)]
+            print(posts_per_page)
+            random_post = posts[random.randint(1, posts_per_page)]
             try:
                 post_url = random_post['file_url']
             except:
