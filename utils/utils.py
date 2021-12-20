@@ -66,7 +66,7 @@ class BooruTool:
             posts_per_page = number_of_posts
         if number_of_posts != 0:
             posts = self.booru.post_list(tags=query, page=random_page, limit=20)
-            print(posts_per_page)
+
             random_post = posts[random.randint(1, posts_per_page)]
             try:
                 post_url = random_post['file_url']
